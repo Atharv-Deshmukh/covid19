@@ -485,13 +485,23 @@
                     `
                     $("#data").html(data)
                 }
-                else if(state == "Washim")
+                else if(state == "Yavatmal")
                 {
                     data = `
                     <td>${data.Maharashtra.districtData.Yavatmal.confirmed}</td>
                     <td>${data.Maharashtra.districtData.Yavatmal.deceased}</td>
                     <td>${data.Maharashtra.districtData.Yavatmal.recovered}</td>
                     <td>${data.Maharashtra.districtData.Yavatmal.active}</td>
+                    `
+                    $("#data").html(data)
+                }
+                else if(state == "Washim")
+                {
+                    data = `
+                    <td>${data.Maharashtra.districtData.Washim.confirmed}</td>
+                    <td>${data.Maharashtra.districtData.Washim.deceased}</td>
+                    <td>${data.Maharashtra.districtData.Washim.recovered}</td>
+                    <td>${data.Maharashtra.districtData.Washim.active}</td>
                     `
                     $("#data").html(data)
                 }
