@@ -22,43 +22,8 @@
             <p class="text-center">Select district to get corona active cases.</p>
             <div class="text-center"> 
                 <select name="" id="dis-select">
-                    <option value="" selected disabled>Choose District</option>
-                    <option value="Pune">Pune</option>
-                    <option value="Mumbai">Mumbai</option>
-                    <option value="Buldhana">Buldhana</option>
-                    <option value="Nagpur">Nagpur</option>
-                    <option value="Ahmednagar">Ahmednagar</option>
-                    <option value="Akola">Akola</option>
-                    <option value="Amravati">Amravati</option>
-                    <option value="Aurangabad">Aurangabad</option>
-                    <option value="Beed">Beed</option>
-                    <option value="Bhandara">Bhandara</option>
-                    <option value="Chandrapur">Chandrapur</option>
-                    <option value="Dhule">Dhule</option>
-                    <option value="Gadchiroli">Gadchiroli</option>
-                    <option value="Gondia">Gondia</option>
-                    <option value="Hingoli">Hingoli</option>
-                    <option value="Jalgaon">Jalgaon</option>
-                    <option value="Jalna">Jalna</option>
-                    <option value="Kolhapur">Kolhapur</option>
-                    <option value="Latur">Latur</option>
-                    <option value="Mumbai Suburban">Mumbai Suburban</option>
-                    <option value="Nanded">Nanded</option>
-                    <option value="Nandurbar">Nandurbar</option>
-                    <option value="Nashik">Nashik</option>
-                    <option value="Osmanabad">Osmanabad</option>
-                    <option value="Palghar">Palghar</option>
-                    <option value="Parbhani">Parbhani</option>
-                    <option value="Raigad">Raigad</option>
-                    <option value="Ratnagiri">Ratnagiri</option>
-                    <option value="Sangli">Sangli</option>
-                    <option value="Satara">Satara</option>
-                    <option value="Sindhudurg">Sindhudurg</option>
-                    <option value="Solapur">Solapur</option>
-                    <option value="Thane">Thane</option>
-                    <option value="Wardha">Wardha</option>
-                    <option value="Washim">Washim</option>
-                    <option value="Yavatmal">Yavatmal</option>
+                    
+                    
                 </select>
                 <input class="btn btn-secondary btn-sm" onclick="init()" type="submit">
             </div>
@@ -127,388 +92,46 @@
 
 </body>
 <script>
-    
-        
+        var url = "https://api.covid19india.org/state_district_wise.json"
+        var data = ''
+        var drpList = ''
+        var state = ``
+        var selector = ``
+
+
+        function listGenerate()
+        {
+            $.get(url,function(a){
+                drpList += `
+                            <option value="" selected disabled>Select District</option>
+                            `
+                for(var i in a.Maharashtra.districtData)
+                        {
+                            drpList += `
+                            <option value="${i}">${i}</option>
+                            `
+                        }
+                $('#dis-select').html(drpList)
+            })
+        }
+
+        listGenerate()
         init()
-        var state
+        
+
         function init(){
-            var url = "https://api.covid19india.org/state_district_wise.json"
-            var data = ''
-            //var state
-            
-
-
             $.get(url,function(data){
                 $("#dis-select").change(function(){
                 state = $("#dis-select Option:selected").text();
-                //console.log(state);
                 })
-                console.log(state);
-                if(state == "Pune")
-                {
                     data = `
-                    <td>${data.Maharashtra.districtData.Pune.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Pune.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Pune.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Pune.active}</td>
+                    <td>${data["Maharashtra"]["districtData"][state]["confirmed"]}</td>
+                    <td>${data["Maharashtra"]["districtData"][state]["deceased"]}</td>
+                    <td>${data["Maharashtra"]["districtData"][state]["recovered"]}</td>
+                    <td>${data["Maharashtra"]["districtData"][state]["active"]}</td>
                     `
                     $("#data").html(data)
-                }
-                else if(state == "Mumbai")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Mumbai.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Mumbai.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Mumbai.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Mumbai.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Ahmednagar")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Ahmednagar.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Ahmednagar.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Ahmednagar.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Ahmednagar.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Akola")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Akola.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Akola.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Akola.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Akola.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Amravati")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Amravati.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Amravati.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Amravati.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Amravati.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Aurangabad")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Aurangabad.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Aurangabad.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Aurangabad.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Aurangabad.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Beed")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Beed.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Beed.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Beed.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Beed.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Bhandara")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Bhandara.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Bhandara.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Bhandara.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Bhandara.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Buldhana")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Buldhana.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Buldhana.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Buldhana.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Buldhana.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Chandrapur")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Chandrapur.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Chandrapur.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Chandrapur.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Chandrapur.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Dhule")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Dhule.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Dhule.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Dhule.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Dhule.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Gadchiroli")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Gadchiroli.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Gadchiroli.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Gadchiroli.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Gadchiroli.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Gondia")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Gondia.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Gondia.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Gondia.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Gondia.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Hingoli")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Hingoli.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Hingoli.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Hingoli.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Hingoli.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Jalgaon")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Jalgaon.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Jalgaon.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Jalgaon.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Jalgaon.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Jalna")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Jalna.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Jalna.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Jalna.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Jalna.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Kolhapur")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Kolhapur.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Kolhapur.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Kolhapur.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Kolhapur.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Latur")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Latur.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Latur.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Latur.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Latur.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Mumbai Suburban")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.MumbaiSuburban.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.MumbaiSuburban.deceased}</td>
-                    <td>${data.Maharashtra.districtData.MumbaiSuburban.recovered}</td>
-                    <td>${data.Maharashtra.districtData.MumbaiSuburban.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Nagpur")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Nagpur.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Nagpur.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Nagpur.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Nagpur.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Nanded")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Nanded.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Nanded.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Nanded.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Nanded.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Nandurbar")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Nandurbar.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Nandurbar.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Nandurbar.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Nandurbar.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Nashik")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Nashik.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Nashik.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Nashik.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Nashik.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Osmanabad")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Osmanabad.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Osmanabad.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Osmanabad.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Osmanabad.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Palghar")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Palghar.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Palghar.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Palghar.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Palghar.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Parbhani")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Parbhani.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Parbhani.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Parbhani.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Parbhani.active}</td>
-
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Raigad")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Raigad.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Raigad.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Raigad.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Raigad.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Ratnagiri")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Ratnagiri.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Ratnagiri.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Ratnagiri.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Ratnagiri.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Sangli")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Sangli.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Sangli.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Sangli.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Sangli.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Satara")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Satara.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Satara.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Satara.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Satara.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Sindhudurg")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Sindhudurg.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Sindhudurg.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Sindhudurg.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Sindhudurg.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Solapur")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Solapur.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Solapur.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Solapur.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Solapur.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Thane")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Thane.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Thane.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Thane.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Thane.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Wardha")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Wardha.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Wardha.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Wardha.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Wardha.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Yavatmal")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Yavatmal.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Yavatmal.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Yavatmal.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Yavatmal.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                else if(state == "Washim")
-                {
-                    data = `
-                    <td>${data.Maharashtra.districtData.Washim.confirmed}</td>
-                    <td>${data.Maharashtra.districtData.Washim.deceased}</td>
-                    <td>${data.Maharashtra.districtData.Washim.recovered}</td>
-                    <td>${data.Maharashtra.districtData.Washim.active}</td>
-                    `
-                    $("#data").html(data)
-                }
-                
-
-                
-            })
+                })
         }    
     
     function refresh(){
