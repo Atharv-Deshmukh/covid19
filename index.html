@@ -97,7 +97,7 @@
         var drpList = ''
         var state = ``
         var selector = ``
-
+        var dis
 
         function listGenerate()
         {
@@ -122,13 +122,13 @@
         function init(){
             $.get(url,function(data){
                 $("#dis-select").change(function(){
-                state = $("#dis-select Option:selected").text();
+                dis = $("#dis-select Option:selected").text();
                 })
                     data = `
-                    <td>${data["Maharashtra"]["districtData"][state]["confirmed"]}</td>
-                    <td>${data["Maharashtra"]["districtData"][state]["deceased"]}</td>
-                    <td>${data["Maharashtra"]["districtData"][state]["recovered"]}</td>
-                    <td>${data["Maharashtra"]["districtData"][state]["active"]}</td>
+                    <td>${data["Maharashtra"]["districtData"][dis]["confirmed"]}</td>
+                    <td>${data["Maharashtra"]["districtData"][dis]["deceased"]}</td>
+                    <td>${data["Maharashtra"]["districtData"][dis]["recovered"]}</td>
+                    <td>${data["Maharashtra"]["districtData"][dis]["active"]}</td>
                     `
                     $("#data").html(data)
                 })
